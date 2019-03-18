@@ -30,10 +30,30 @@ catch
 while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }
 try
 {
+    Write-Host "Executed next to last line"
     $Link=$ie.Document.documentElement.getElementsByClassName("primaryCTA big")[0].Item().Click();
 }
 catch
 {
-    Write-Host "$_.Exception.Message"
+Write-Host "$_.Exception.Message"
 }
+while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }
+try
+{
+    $ValidCerts = [System.Security.Cryptography.X509Certificates.X509Certificate2[]] (dir Cert:\CurrentUser\My | where { $_.NotAfter -gt (Get-Date) })
+    Write-Host "Executed last line"
+    $Link=$ie.Document.documentElement.getElementsByClassName("primaryCTA big")[0].Item().Click();
+    #https://www.my.af.mil/pkmslogin.form
+}
+catch
+{
+Write-Host "$_.Exception.Message"
+}
+
+#$ie = New-Object -com internetexplorer.application;
+#$ie.visible= $true;
+#while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }
+#$ie.Navigate("https://www.my.af.mil/pkmslogin.form");
+#javascript:window.location='https://www.my.af.mil/EAI_JUNCTION/eai/auth?refURL='+document.URL.replace(/"&"amp;/g,'%26');
+#$ie.Navigate("javascript:window.location='https://www.my.af.mil/EAI_JUNCTION/eai/auth?refURL"+ "$ValidCerts");
 

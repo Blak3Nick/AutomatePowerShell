@@ -1,0 +1,1 @@
+powershell.exe -command "& 'cd C:\Users\Cyr1lfiggus1\Desktop\ | java -jar SquadronReadiness-1.0-SNAPSHOT-jar-with-dependencies.jar'"
